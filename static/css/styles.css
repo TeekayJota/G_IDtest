@@ -294,6 +294,16 @@ textarea.field { resize: vertical; }
 .login-brand__tag { font: 600 10px Saira; letter-spacing: .2em; color: var(--green); }
 .login-card { border: 1px solid var(--b3); border-radius: 16px; padding: 26px; background: var(--panel); }
 
+/* Campo de contraseña con botón mostrar/ocultar */
+.pwd-wrap { position: relative; }
+.pwd-wrap .field { padding-right: 44px; }
+.pwd-toggle {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--muted-3); cursor: pointer;
+  display: grid; place-items: center; padding: 6px; border-radius: 7px;
+}
+.pwd-toggle:hover { color: var(--green); }
+
 /* ---------- Layout staff ---------- */
 .staff-layout { display: flex; flex-wrap: wrap; }
 .sidebar { width: 230px; flex: 0 0 230px; background: var(--panel-3); border-right: 1px solid var(--b1); padding: 22px 14px; display: flex; flex-direction: column; gap: 4px; min-height: 100vh; }
