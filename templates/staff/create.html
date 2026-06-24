@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Crear torneo · Staff GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Staff · Crear torneo" class="staff-layout">
+  {% include "partials/sidebar.html" with active="create" %}
+
+  <main class="staff-main">
+    <h1 style="font:700 30px 'Saira Condensed';letter-spacing:.02em;margin:0 0 4px">CREAR TORNEO</h1>
+    <p style="font:400 13.5px Saira;color:var(--muted-3);margin:0 0 24px">Define las características del torneo y qué datos pedirá el formulario público.</p>
+
+    {% if form.errors %}
+      <div class="msg msg--error" style="margin-bottom:18px">Revisa los campos marcados: hay datos por corregir.</div>
+    {% endif %}
+
+    <form method="post" class="create-form">
+      {% csrf_token %}
+
+      <!-- info general -->
+      <div class="data-card">
+        <div class="data-card__title">INFORMACIÓN GENERAL</div>
+        <div style="margin-bottom:14px">
+          <label class="field-label">Nombre del torneo</label>
+          {{ form.name }}
+          {% for e in form.name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </div>
+        <div class="cols-2">
+          <div><label class="field-label">Juego</label>{{ form.game }}</div>
+          <div><label class="field-label">Formato</label>{{ form.format }}</div>
+        </div>
+      </div>
+
+      <!-- cupos y fechas -->
+      <div class="data-card">
+        <div class="data-card__title">CUPOS Y FECHAS</div>
+        <div class="cols-3" style="margin-bottom:14px">
+          <div><label class="field-label">Cupos</label>{{ form.slots_total }}</div>
+          <div><label class="field-label">Jugadores/equipo</label>{{ form.team_size }}</div>
+          <div><label class="field-label">Premio (S/)</label>{{ form.prize_pen }}</div>
+        </div>
+        <div class="cols-3">
+          <div><label class="field-label">Inicio</label>{{ form.start_date }}</div>
+          <div><label class="field-label">Fin</label>{{ form.end_date }}</div>
+          <div><label class="field-label">Cierre inscrip.</label>{{ form.registration_close }}</div>
+        </div>
+        {% for e in form.registration_close.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+      </div>
+
+      <!-- ajustes -->
+      <div class="data-card">
+        <div class="data-card__title">AJUSTES</div>
+        <div class="cols-3">
+          <div><label class="field-label">Prefijo de código</label>{{ form.code_prefix }}</div>
+          <div><label class="field-label">Estado</label>{{ form.status }}</div>
+          <div>
+            <label class="field-label">Destacado</label>
+            <label class="field-check" style="margin-top:0">{{ form.featured }}<span>Mostrar como torneo destacado</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- campos del formulario -->
+      <div class="data-card">
+        <div class="data-card__title" style="margin-bottom:6px">CAMPOS DEL FORMULARIO PÚBLICO</div>
+        <p style="font:400 12.5px Saira;color:var(--muted-3);margin:0 0 14px">Selecciona qué datos pedirá la inscripción de este torneo.</p>
+        <div class="fields-grid">
+          <label class="field-check">{{ form.field_dni }}<span>DNI</span></label>
+          <label class="field-check">{{ form.field_phone }}<span>Teléfono</span></label>
+          <label class="field-check">{{ form.field_email }}<span>Correo</span></label>
+          <label class="field-check">{{ form.field_steam }}<span>Steam ID</span></label>
+          <label class="field-check">{{ form.field_nick }}<span>Nick / usuario</span></label>
+          <label class="field-check">{{ form.field_gaming_center }}<span>Gaming Center</span></label>
+        </div>
+      </div>
+
+      <!-- reglas -->
+      <div class="data-card">
+        <label class="data-card__title" style="display:block;margin-bottom:12px">REGLAS / DESCRIPCIÓN</label>
+        {{ form.description }}
+      </div>
+
+      <div class="create-actions">
+        <a class="btn btn-ghost" href="{% url 'staff_inbox' %}" style="padding:13px 22px">Cancelar</a>
+        <button type="submit" class="btn btn-primary" style="padding:13px 26px">Publicar torneo</button>
+      </div>
+    </form>
+  </main>
+</div>
+{% endblock %}

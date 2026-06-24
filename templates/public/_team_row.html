@@ -1,0 +1,7 @@
+<div class="team-row">
+  <div>
+    <div class="team-row__name">{{ tm.display_name }}</div>
+    <div class="team-row__meta">Cap. {{ tm.captain_full_name }} · {{ tm.players_count }} jugadores</div>
+  </div>
+  <span class="badge badge--{{ tm.status_slug }}">{{ tm.get_status_display }}</span>
+</div>

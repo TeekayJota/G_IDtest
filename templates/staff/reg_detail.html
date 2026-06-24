@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}{{ reg.code }} · Staff GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Staff · Detalle de inscripción" class="staff-layout">
+  {% include "partials/sidebar.html" with active="inbox" %}
+
+  <main class="staff-main">
+    <a class="btn-back" href="{% url 'staff_inbox' %}" style="display:inline-block;margin-bottom:16px">← Volver a inscripciones</a>
+
+    <div class="reg-head">
+      <div>
+        <div class="reg-head__title">
+          <h1>{{ reg.display_name }}</h1>
+          <span class="badge badge--{{ reg.status_slug }} badge-lg">{{ reg.get_status_display }}</span>
+        </div>
+        <div class="reg-head__sub">
+          <span class="accent mono">{{ reg.code }}</span> · {{ reg.tournament.name }} ·
+          {{ reg.tournament.game }} · {{ reg.type_label }} · {{ reg.created_label_full }}
+        </div>
+      </div>
+      <form method="post" class="reg-actions">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="set_status">
+        <button class="btn-status btn-status--review" name="status" value="REVIEW">En revisión</button>
+        <button class="btn-status btn-status--approve" name="status" value="APPROVED">Aprobar</button>
+        <button class="btn-status btn-status--reject" name="status" value="REJECTED">Rechazar</button>
+      </form>
+    </div>
+
+    <div class="reg-cols">
+      <!-- Columna izquierda: datos -->
+      <div class="reg-col">
+        <div class="data-card">
+          <div class="data-card__title">DATOS DEL CAPITÁN</div>
+          <div class="data-grid">
+            <div><div class="data-k">NOMBRE</div><div class="data-v">{{ reg.captain_full_name }}</div></div>
+            {% if reg.dni %}<div><div class="data-k">DNI</div><div class="data-v mono">{{ reg.dni }}</div></div>{% endif %}
+            {% if reg.phone %}<div><div class="data-k">TELÉFONO</div><div class="data-v">{{ reg.phone }}</div></div>{% endif %}
+            {% if reg.steam_id %}<div><div class="data-k">STEAM ID</div><div class="data-v mono accent">{{ reg.steam_id }}</div></div>
+            {% elif reg.nick %}<div><div class="data-k">NICK</div><div class="data-v mono accent">{{ reg.nick }}</div></div>{% endif %}
+            {% if reg.gaming_center %}<div class="data-grid__full"><div class="data-k">GAMING CENTER</div><div class="data-v">{{ reg.gaming_center }}</div></div>{% endif %}
+            {% if reg.email %}<div class="data-grid__full"><div class="data-k">CORREO</div><div class="data-v">{{ reg.email }}</div></div>{% endif %}
+          </div>
+        </div>
+
+        {% if reg.tournament.requires_team %}
+        <div class="data-card">
+          <div class="data-card__title">INTEGRANTES DEL EQUIPO</div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div class="member-item">
+              <div class="member-item__left">
+                <div class="member-avatar">{{ reg.nick|default:reg.first_name|slice:":1"|upper }}</div>
+                <div>
+                  <div class="member-nick">{{ reg.nick|default:reg.first_name }} <span style="color:var(--green)">· Capitán</span></div>
+                  <div class="member-steam mono">{{ reg.steam_id|default:"—" }}</div>
+                </div>
+              </div>
+              <span class="member-steam mono">{{ reg.dni }}</span>
+            </div>
+            {% for m in reg.members.all %}
+            <div class="member-item">
+              <div class="member-item__left">
+                <div class="member-avatar">{{ m.initial }}</div>
+                <div>
+                  <div class="member-nick">{{ m.nick }}</div>
+                  <div class="member-steam mono">{{ m.steam_id|default:"—" }}</div>
+                </div>
+              </div>
+              <span class="member-steam mono">{{ m.dni }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Columna derecha: estado y notas -->
+      <div class="reg-col">
+        <div class="data-card">
+          <div class="data-card__title">SEGUIMIENTO DE ESTADO</div>
+          <div class="timeline">
+            {% for n in timeline %}
+              <div class="timeline__node">
+                <div class="timeline__dot {% if n.state == 'done' %}is-done{% elif n.state == 'current' %}is-current--{{ n.slug }}{% endif %}"></div>
+                <div class="timeline__label {% if n.state == 'done' %}text--aprobado{% elif n.state == 'current' %}text--{{ n.slug }} is-on{% endif %}">{{ n.label }}</div>
+              </div>
+              {% if not forloop.last %}<div class="timeline__bar {% if n.state == 'done' %}is-done{% endif %}"></div>{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card__title">NOTAS INTERNAS DEL STAFF</div>
+          <div class="notes-list">
+            {% for note in reg.notes.all %}
+            <div class="note">
+              <div class="note__head">
+                <span class="note__author">{{ note.author_name }}</span>
+                <span class="note__time">{{ note.time_label }}</span>
+              </div>
+              <div class="note__text">{{ note.text }}</div>
+            </div>
+            {% empty %}
+            <p style="font:400 13px Saira;color:var(--muted-3);margin:0">Aún no hay notas internas.</p>
+            {% endfor %}
+          </div>
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_note">
+            <textarea class="field" name="text" rows="2" placeholder="Agregar una nota interna…"></textarea>
+            <button type="submit" class="btn btn-ghost btn-sm" style="margin-top:10px">Guardar nota</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% if show_demo_nav %}
+{% with url_name=request.resolver_match.url_name %}
+<div class="demo-nav">
+  <span class="demo-nav__title">PROTOTIPO · DEMO</span>
+  <div class="demo-nav__group">
+    <span class="demo-nav__label demo-nav__label--p">PÚBLICO</span>
+    <a class="demo-pill {% if url_name == 'landing' %}is-active{% endif %}" href="{% url 'landing' %}">Inicio</a>
+    <a class="demo-pill {% if url_name == 'tournament_list' %}is-active{% endif %}" href="{% url 'tournament_list' %}">Torneos</a>
+    {% if demo_slug %}<a class="demo-pill {% if url_name == 'tournament_detail' %}is-active{% endif %}" href="{% url 'tournament_detail' demo_slug %}">Detalle</a>{% endif %}
+    <a class="demo-pill {% if url_name == 'register' or url_name == 'register_tournament' %}is-active{% endif %}" href="{% url 'register' %}">Registro</a>
+    {% if demo_code %}<a class="demo-pill {% if url_name == 'confirm' %}is-active{% endif %}" href="{% url 'confirm' demo_code %}">Confirmación</a>{% endif %}
+  </div>
+  <div class="demo-nav__sep"></div>
+  <div class="demo-nav__group">
+    <span class="demo-nav__label demo-nav__label--s">STAFF</span>
+    <a class="demo-pill {% if url_name == 'staff_login' %}is-active{% endif %}" href="{% url 'staff_login' %}">Login</a>
+    <a class="demo-pill {% if url_name == 'staff_inbox' %}is-active{% endif %}" href="{% url 'staff_inbox' %}">Inscripciones</a>
+    {% if demo_code %}<a class="demo-pill {% if url_name == 'staff_reg_detail' %}is-active{% endif %}" href="{% url 'staff_reg_detail' demo_code %}">Detalle</a>{% endif %}
+    <a class="demo-pill {% if url_name == 'staff_create' %}is-active{% endif %}" href="{% url 'staff_create' %}">Crear torneo</a>
+  </div>
+</div>
+{% endwith %}
+{% endif %}

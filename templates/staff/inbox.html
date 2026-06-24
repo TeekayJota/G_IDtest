@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Inscripciones · Staff GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Staff · Inscripciones" class="staff-layout">
+  {% include "partials/sidebar.html" with active="inbox" %}
+
+  <main class="staff-main">
+    <div class="toolbar">
+      <div>
+        <h1 style="font:700 30px 'Saira Condensed';letter-spacing:.02em;margin:0">INSCRIPCIONES</h1>
+        <p style="font:400 13.5px Saira;color:var(--muted-3);margin:4px 0 0">Beyond The Dreams · Temporada 2026</p>
+      </div>
+      <form method="get">
+        {% if status %}<input type="hidden" name="status" value="{{ status }}">{% endif %}
+        <input class="search-input" name="q" value="{{ q }}" placeholder="Buscar por código o nombre…">
+      </form>
+    </div>
+
+    <div class="chip-row">
+      {% for f in filters %}
+        <a class="chip {% if f.active %}is-active{% endif %}"
+           href="?{% if f.value %}status={{ f.value }}{% endif %}{% if q %}{% if f.value %}&{% endif %}q={{ q }}{% endif %}">
+          {{ f.label }} · {{ f.n }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <div class="table">
+          <div class="table-head">
+            <span>CÓDIGO</span><span>EQUIPO / JUGADOR</span><span>JUEGO</span>
+            <span>TIPO</span><span>FECHA</span><span class="text-right">ESTADO</span>
+          </div>
+          {% for r in registrations %}
+          <a class="table-row" href="{% url 'staff_reg_detail' r.code %}">
+            <span class="table-row__code">{{ r.code }}</span>
+            <span class="table-row__who">{{ r.display_name }}</span>
+            <span class="table-row__cell">{{ r.tournament.game }}</span>
+            <span class="table-row__cell">{{ r.type_label }}</span>
+            <span class="table-row__cell table-row__cell--muted">{{ r.created_label }}</span>
+            <span class="text-right"><span class="badge badge--{{ r.status_slug }}">{{ r.get_status_display }}</span></span>
+          </a>
+          {% empty %}
+          <div style="padding:30px 18px;font:500 13px Saira;color:var(--muted-3)">No se encontraron inscripciones.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <p style="font:500 12px Saira;color:var(--muted-4);margin-top:14px">Las inscripciones rechazadas solo son visibles para el staff.</p>
+  </main>
+</div>
+{% endblock %}

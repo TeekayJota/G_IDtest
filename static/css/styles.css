@@ -1,0 +1,431 @@
+/* ============================================================
+   GamerID · Beyond the Dreams — design system
+   Réplica fiel del prototipo (colores, tipografía, componentes).
+   ============================================================ */
+
+:root {
+  --bg: #0E1311;
+  --panel: #111714;
+  --panel-2: #0C1310;
+  --panel-3: #0B100E;
+  --panel-4: #090D0B;
+
+  --ink: #E8EDEA;
+  --soft: #C3CDC7;
+  --muted: #A9B5AE;
+  --muted-2: #9AA8A1;
+  --muted-3: #8A968F;
+  --muted-4: #5C675F;
+
+  --green: #3FB873;
+  --green-hi: #4ECC85;
+  --green-lo: #2A8C56;
+  --on-green: #08110C;
+
+  --b1: #1E2722;
+  --b2: #2A332F;
+  --b3: #233029;
+  --b4: #1A211D;
+  --b5: #161D1A;
+  --b6: #232E29;
+
+  --amber: #E0A23A;
+  --blue: #5B8DEF;
+  --red: #E06A5A;
+
+  --stripes: repeating-linear-gradient(135deg, #101714, #101714 14px, #0D1310 14px, #0D1310 28px);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Saira', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::placeholder { color: var(--muted-4); }
+input, select, textarea, button { font-family: 'Saira', sans-serif; }
+::-webkit-scrollbar { height: 8px; width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 8px; }
+
+a { color: inherit; text-decoration: none; }
+
+.page {
+  min-height: 100vh;
+  background: radial-gradient(900px 460px at 70% -120px, rgba(63, 184, 115, 0.10), transparent 70%), var(--bg);
+}
+
+.mono { font-family: ui-monospace, monospace; }
+.accent { color: var(--green); }
+.container { max-width: 1160px; margin: 0 auto; }
+
+/* ---------- Barra de demo ---------- */
+.demo-nav {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--panel-4); border-bottom: 1px solid var(--b6);
+  padding: 9px 18px; display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: center;
+}
+.demo-nav__title { font: 700 11px 'Saira Condensed'; letter-spacing: .24em; color: var(--muted-4); }
+.demo-nav__group { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.demo-nav__label { font: 700 9.5px Saira; letter-spacing: .18em; margin-right: 2px; }
+.demo-nav__label--p { color: var(--green); }
+.demo-nav__label--s { color: var(--muted-3); }
+.demo-nav__sep { width: 1px; height: 20px; background: var(--b6); }
+.demo-pill {
+  padding: 5px 12px; border-radius: 7px; font: 600 12.5px Saira; letter-spacing: .02em;
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+  border: 1px solid var(--b2); background: transparent; color: var(--muted-2);
+}
+.demo-pill.is-active { border-color: var(--green); background: var(--green); color: var(--on-green); }
+
+/* ---------- Mensajes ---------- */
+.messages { max-width: 1160px; margin: 14px auto 0; padding: 0 32px; display: flex; flex-direction: column; gap: 8px; }
+.msg { padding: 11px 15px; border-radius: 10px; font: 600 13px Saira; border: 1px solid var(--b2); }
+.msg--success { color: var(--green); background: rgba(63, 184, 115, 0.10); border-color: var(--green); }
+.msg--error { color: var(--red); background: rgba(224, 106, 90, 0.10); border-color: var(--red); }
+
+/* ---------- Marca / logo ---------- */
+.brand { display: flex; align-items: center; gap: 11px; }
+.brand-logo {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--green), var(--green-lo));
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  display: grid; place-items: center;
+  font: 700 13px 'Saira Condensed'; color: var(--on-green); letter-spacing: .02em;
+}
+.brand-logo--sm { width: 32px; height: 32px; font-size: 12px; }
+.brand-logo--lg { width: 46px; height: 46px; font-size: 16px; }
+.brand-name { font: 700 17px 'Saira Condensed'; letter-spacing: .13em; }
+.brand-tag { font: 600 9px Saira; letter-spacing: .24em; color: var(--green); }
+.brand-text { line-height: 1.05; }
+
+/* ---------- Header público ---------- */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap; padding: 18px 32px; border-bottom: 1px solid var(--b1);
+}
+.nav { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.nav-link {
+  background: none; border: none; color: var(--muted-2);
+  font: 600 13.5px Saira; padding: 8px 12px; cursor: pointer;
+}
+.nav-link:hover { color: var(--ink); }
+.nav-link.is-active { color: var(--ink); }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; border-radius: 10px; padding: 14px 26px;
+  font: 700 15px Saira; letter-spacing: .03em; cursor: pointer; transition: all .15s;
+}
+.btn-primary { background: var(--green); color: var(--on-green); }
+.btn-primary:hover { background: var(--green-hi); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--b2); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+.btn-sm { padding: 10px 18px; font-size: 13px; border-radius: 9px; }
+.btn-block { width: 100%; }
+.btn-link { background: none; border: none; color: var(--green); font: 600 13px Saira; cursor: pointer; padding: 0; }
+.btn-back { background: none; border: none; color: var(--muted-3); font: 600 13px Saira; cursor: pointer; padding: 0; }
+.btn-back:hover { color: var(--ink); }
+
+/* ---------- Eyebrow / badges ---------- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px;
+  border: 1px solid var(--b2); border-radius: 999px;
+}
+.eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+.eyebrow span:last-child { font: 600 11.5px Saira; letter-spacing: .14em; color: var(--muted-2); }
+.kicker { font: 600 12px Saira; letter-spacing: .16em; color: var(--green); }
+
+.badge { font: 600 10.5px Saira; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; white-space: nowrap; display: inline-block; }
+.badge--abierto, .badge--aprobado { color: var(--green); background: rgba(63, 184, 115, 0.13); }
+.badge--pocos, .badge--pendiente { color: var(--amber); background: rgba(224, 162, 58, 0.13); }
+.badge--proximo { color: var(--muted-3); background: rgba(138, 150, 143, 0.13); }
+.badge--revision { color: var(--blue); background: rgba(91, 141, 239, 0.13); }
+.badge--rechazado { color: var(--red); background: rgba(224, 106, 90, 0.13); }
+.badge-lg { font-size: 11px; padding: 5px 12px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  max-width: 1160px; margin: 0 auto; padding: 54px 32px 30px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center;
+}
+.hero-title { font-family: 'Saira Condensed'; font-weight: 700; font-size: 62px; line-height: .96; letter-spacing: .01em; margin: 16px 0; text-wrap: balance; }
+.hero-lead { font: 400 17px Saira; color: var(--muted); max-width: 440px; line-height: 1.55; margin: 0 0 30px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.stats { display: flex; gap: 34px; margin-top: 38px; flex-wrap: wrap; }
+.stat-num { font: 700 26px 'Saira Condensed'; color: var(--ink); }
+.stat-label { font: 500 12px Saira; color: var(--muted-3); letter-spacing: .08em; }
+.hero-art {
+  position: relative; border: 1px solid var(--b3); border-radius: 18px; overflow: hidden;
+  min-height: 330px; background: var(--stripes);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
+}
+.hero-art__ghost { font: 500 11px ui-monospace, monospace; color: var(--muted-4); position: absolute; top: 50%; left: 0; right: 0; text-align: center; }
+.live-badge {
+  position: absolute; top: 18px; left: 18px; display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(9, 13, 11, 0.7); border: 1px solid var(--b2); padding: 5px 11px; border-radius: 8px;
+}
+.live-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+.live-badge span:last-child { font: 700 10px Saira; letter-spacing: .16em; color: var(--ink); }
+
+/* ---------- Secciones ---------- */
+.section { max-width: 1160px; margin: 0 auto; padding: 34px 32px 10px; }
+.section--gap { padding: 40px 32px 20px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+.section-title { font: 700 24px 'Saira Condensed'; letter-spacing: .04em; margin: 0; }
+.page-title { font: 700 38px 'Saira Condensed'; letter-spacing: .02em; margin: 0 0 6px; }
+.lead { font: 400 15px Saira; color: var(--muted-3); margin: 0 0 26px; }
+
+.grid-auto { display: grid; gap: 16px; }
+.grid-auto--250 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.grid-auto--240 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid-auto--280 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+
+/* ---------- Cards ---------- */
+.card { border: 1px solid var(--b1); border-radius: 14px; padding: 18px; background: var(--panel); }
+.card:hover { border-color: #2F4339; }
+.card-static:hover { border-color: var(--b1); }
+
+.game-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.tag-box {
+  width: 42px; height: 42px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--b3);
+  display: grid; place-items: center; font: 700 14px 'Saira Condensed'; color: var(--green); letter-spacing: .04em;
+}
+.tag-box--lg { width: 46px; height: 46px; font-size: 15px; }
+.game-card__name { font: 700 19px 'Saira Condensed'; letter-spacing: .03em; }
+.game-card__meta { font: 500 13px Saira; color: var(--muted-3); margin: 2px 0 14px; }
+.game-card__foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--b4); }
+.game-card__slots { font: 500 12.5px Saira; color: var(--muted); }
+
+/* Tarjeta de torneo (listado) */
+.tcard { border: 1px solid var(--b1); border-radius: 16px; overflow: hidden; background: var(--panel); }
+.tcard__banner { height: 120px; background: var(--stripes); position: relative; display: flex; align-items: flex-end; padding: 14px; }
+.tcard__banner .badge { position: absolute; top: 12px; right: 12px; }
+.tcard__body { padding: 18px; }
+.tcard__name { font: 700 21px 'Saira Condensed'; letter-spacing: .03em; }
+.tcard__meta { font: 500 13px Saira; color: var(--muted-3); margin: 3px 0 14px; }
+.tcard__stats { display: flex; gap: 18px; margin-bottom: 16px; }
+.tcard__stat-num { font: 700 16px 'Saira Condensed'; }
+.tcard__stat-label { font: 500 11px Saira; color: var(--muted-3); letter-spacing: .06em; }
+.tcard__actions { display: flex; gap: 9px; }
+
+/* Pasos "cómo participo" */
+.step { border: 1px solid var(--b1); border-radius: 14px; padding: 22px; background: var(--panel); }
+.step__n { font: 700 22px 'Saira Condensed'; color: var(--green); margin-bottom: 10px; }
+.step__t { font: 700 16px Saira; margin-bottom: 6px; }
+.step__d { font: 400 13.5px Saira; color: var(--muted-3); line-height: 1.5; }
+
+/* Filtros de torneos */
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.filter-chip { padding: 7px 14px; border-radius: 8px; border: 1px solid var(--b2); color: var(--muted-2); font: 600 12.5px Saira; cursor: pointer; }
+.filter-chip.is-active { border-color: var(--green); background: rgba(63, 184, 115, 0.13); color: var(--green); }
+
+/* ---------- Footer ---------- */
+.site-footer { max-width: 1160px; margin: 30px auto 0; padding: 24px 32px; border-top: 1px solid var(--b1); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.site-footer span { font: 500 12px Saira; color: var(--muted-4); }
+.site-footer span:first-child { font-weight: 600; letter-spacing: .1em; }
+
+/* ---------- Detalle de torneo ---------- */
+.detail-wrap { max-width: 1100px; margin: 0 auto; padding: 26px 32px; }
+.detail-banner { border: 1px solid var(--b3); border-radius: 18px; overflow: hidden; background: var(--stripes); padding: 28px; position: relative; margin-bottom: 22px; }
+.detail-banner h1 { font: 700 40px 'Saira Condensed'; letter-spacing: .02em; margin: 14px 0 4px; }
+.detail-banner p { font: 400 14.5px Saira; color: var(--muted); margin: 0; max-width: 560px; }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 26px; }
+.info-box { border: 1px solid var(--b1); border-radius: 12px; padding: 16px; background: var(--panel); }
+.info-box__k { font: 500 11px Saira; color: var(--muted-3); letter-spacing: .08em; }
+.info-box__v { font: 700 17px 'Saira Condensed'; margin-top: 4px; }
+.progress-card { border: 1px solid var(--b1); border-radius: 12px; padding: 18px; background: var(--panel); margin-bottom: 30px; }
+.progress-card__top { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.progress { height: 8px; border-radius: 99px; background: var(--panel-2); overflow: hidden; }
+.progress__bar { height: 100%; background: linear-gradient(90deg, var(--green-lo), var(--green)); }
+.group-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.group-label .dot { width: 9px; height: 9px; border-radius: 50%; }
+.group-label span:last-child { font: 700 13px Saira; letter-spacing: .06em; }
+.dot--aprobado { background: var(--green); } .text--aprobado { color: var(--green); }
+.dot--revision { background: var(--blue); } .text--revision { color: var(--blue); }
+.dot--pendiente { background: var(--amber); } .text--pendiente { color: var(--amber); }
+.dot--rechazado { background: var(--red); } .text--rechazado { color: var(--red); }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.team-row { border: 1px solid var(--b1); border-radius: 12px; padding: 15px; background: var(--panel); display: flex; justify-content: space-between; align-items: center; }
+.team-row__name { font: 700 15px Saira; }
+.team-row__meta { font: 500 12px Saira; color: var(--muted-3); margin-top: 2px; }
+
+/* ---------- Formularios públicos ---------- */
+.form-wrap { max-width: 680px; margin: 0 auto; padding: 34px 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.field-group { margin-bottom: 18px; }
+.field-label { display: block; font: 600 11.5px Saira; letter-spacing: .07em; text-transform: uppercase; color: var(--muted-3); margin-bottom: 8px; }
+.field {
+  width: 100%; background: var(--panel-2); border: 1px solid var(--b2); border-radius: 10px;
+  padding: 12px 13px; color: var(--ink); font: 400 14.5px Saira; outline: none;
+}
+.field:focus { border-color: var(--green); }
+select.field { cursor: pointer; font-weight: 500; }
+textarea.field { resize: vertical; }
+.field-hint { font: 500 12px Saira; color: var(--muted-4); margin-top: 7px; }
+.section-label { font: 700 13px Saira; letter-spacing: .06em; color: var(--muted); margin: 6px 0 14px; }
+.team-box { border: 1px solid var(--b3); border-radius: 12px; padding: 16px; background: rgba(63, 184, 115, 0.04); margin-bottom: 20px; }
+.team-box__label { display: block; font: 600 11.5px Saira; letter-spacing: .07em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+.member-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.checkbox { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0 22px; cursor: pointer; }
+.checkbox__box { width: 18px; height: 18px; border: 1px solid var(--green); border-radius: 5px; flex: 0 0 18px; margin-top: 1px; background: rgba(63, 184, 115, 0.12); }
+.checkbox span:last-child { font: 400 13px Saira; color: var(--muted); line-height: 1.5; }
+.field-error { color: var(--red); font: 500 12px Saira; margin-top: 6px; }
+
+/* ---------- Confirmación ---------- */
+.confirm-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+.confirm-card { max-width: 480px; width: 100%; text-align: center; }
+.check-circle { width: 74px; height: 74px; border-radius: 50%; background: rgba(63, 184, 115, 0.13); border: 1.5px solid var(--green); display: grid; place-items: center; margin: 0 auto 22px; font: 300 38px Saira; color: var(--green); }
+.code-box { border: 1px solid var(--b3); border-radius: 14px; padding: 20px; background: var(--panel); margin-bottom: 18px; }
+.code-box__k { font: 500 11.5px Saira; letter-spacing: .1em; color: var(--muted-3); margin-bottom: 6px; }
+.code-box__v { font: 700 30px 'Saira Condensed'; letter-spacing: .08em; color: var(--green); }
+.status-pill { display: inline-flex; align-items: center; gap: 7px; margin-top: 12px; padding: 5px 13px; border-radius: 999px; }
+.status-pill .dot { width: 7px; height: 7px; border-radius: 50%; }
+
+/* ---------- Login staff ---------- */
+.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+.login-inner { max-width: 400px; width: 100%; }
+.login-brand { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; }
+.login-brand__name { font: 700 20px 'Saira Condensed'; letter-spacing: .13em; margin-top: 14px; }
+.login-brand__tag { font: 600 10px Saira; letter-spacing: .2em; color: var(--green); }
+.login-card { border: 1px solid var(--b3); border-radius: 16px; padding: 26px; background: var(--panel); }
+
+/* ---------- Layout staff ---------- */
+.staff-layout { display: flex; flex-wrap: wrap; }
+.sidebar { width: 230px; flex: 0 0 230px; background: var(--panel-3); border-right: 1px solid var(--b1); padding: 22px 14px; display: flex; flex-direction: column; gap: 4px; min-height: 100vh; }
+.sidebar__brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 20px; margin-bottom: 8px; border-bottom: 1px solid var(--b4); }
+.sidebar__brand-name { font: 700 13px 'Saira Condensed'; letter-spacing: .1em; }
+.sidebar__brand-tag { font: 600 8px Saira; letter-spacing: .16em; color: var(--green); }
+.sidebar-item { color: var(--muted-2); padding: 11px 12px; border-radius: 8px; font: 600 13.5px Saira; cursor: pointer; display: block; }
+.sidebar-item:hover { color: var(--ink); }
+.sidebar-item.is-active { background: rgba(63, 184, 115, 0.12); color: var(--green); border-left: 2px solid var(--green); }
+.sidebar__spacer { flex: 1; }
+.sidebar__user { padding: 12px; border-top: 1px solid var(--b4); display: flex; align-items: center; gap: 10px; }
+.sidebar__avatar { width: 32px; height: 32px; border-radius: 50%; background: #1C2421; display: grid; place-items: center; font: 700 12px Saira; color: var(--green); }
+.sidebar__uname { font: 600 12.5px Saira; }
+.sidebar__urole { font: 500 10.5px Saira; color: var(--muted-3); }
+.sidebar-logout { color: var(--muted-3); padding: 8px 12px; font: 600 12.5px Saira; cursor: pointer; background: none; border: none; text-align: left; display: block; width: 100%; }
+.sidebar-logout:hover { color: var(--red); }
+.staff-main { flex: 1; min-width: 300px; padding: 26px 28px; background: var(--bg); }
+
+/* Bandeja */
+.toolbar { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+.search-input { background: var(--panel-2); border: 1px solid var(--b2); border-radius: 10px; padding: 11px 14px; color: var(--ink); font: 400 13.5px Saira; outline: none; min-width: 240px; }
+.search-input:focus { border-color: var(--green); }
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 16px; }
+.chip { padding: 7px 13px; border-radius: 8px; font: 600 12.5px Saira; cursor: pointer; white-space: nowrap; border: 1px solid var(--b2); background: transparent; color: var(--muted-2); }
+.chip.is-active { border-color: var(--green); background: rgba(63, 184, 115, 0.13); color: var(--green); }
+.table-wrap { border: 1px solid var(--b1); border-radius: 14px; overflow: hidden; background: var(--panel); }
+.table-scroll { overflow-x: auto; }
+.table { min-width: 720px; }
+.table-head, .table-row { display: grid; grid-template-columns: 100px 1.7fr 1fr 1fr 1.1fr 110px; gap: 12px; padding: 13px 18px; align-items: center; }
+.table-head { border-bottom: 1px solid var(--b1); font: 600 11px Saira; letter-spacing: .08em; color: var(--muted-3); }
+.table-row { border-bottom: 1px solid var(--b5); cursor: pointer; }
+.table-row:hover { background: #141B17; }
+.table-row__code { font: 600 12.5px ui-monospace, monospace; color: var(--green); }
+.table-row__who { font: 600 14px Saira; }
+.table-row__cell { font: 500 13px Saira; color: var(--muted); }
+.table-row__cell--muted { font-size: 12.5px; color: var(--muted-3); }
+.text-right { text-align: right; }
+
+/* Detalle de inscripción (staff) */
+.reg-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 22px; }
+.reg-head__title { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.reg-head h1 { font: 700 30px 'Saira Condensed'; letter-spacing: .02em; margin: 0; }
+.reg-head__sub { font: 500 13.5px Saira; color: var(--muted-3); margin-top: 6px; }
+.reg-actions { display: flex; gap: 9px; flex-wrap: wrap; }
+.btn-status { border-radius: 9px; padding: 10px 16px; font: 700 13px Saira; cursor: pointer; border: 1px solid transparent; }
+.btn-status--review { background: rgba(91, 141, 239, 0.12); color: var(--blue); border-color: var(--blue); }
+.btn-status--approve { background: var(--green); color: var(--on-green); }
+.btn-status--reject { background: rgba(224, 106, 90, 0.10); color: var(--red); border-color: var(--red); }
+.reg-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; align-items: start; }
+.reg-col { display: flex; flex-direction: column; gap: 18px; }
+.data-card { border: 1px solid var(--b1); border-radius: 14px; padding: 20px; background: var(--panel); }
+.data-card__title { font: 700 13px Saira; letter-spacing: .06em; color: var(--muted); margin-bottom: 16px; }
+.data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+.data-grid__full { grid-column: 1 / -1; }
+.data-k { font: 500 11px Saira; color: var(--muted-3); letter-spacing: .06em; }
+.data-v { font: 600 14.5px Saira; margin-top: 3px; }
+.member-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--b5); }
+.member-item__left { display: flex; align-items: center; gap: 10px; }
+.member-avatar { width: 30px; height: 30px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--b3); display: grid; place-items: center; font: 600 12px Saira; color: var(--green); }
+.member-nick { font: 600 13.5px Saira; }
+.member-steam { font: 500 11px Saira; color: var(--muted-3); }
+.timeline { display: flex; align-items: center; }
+.timeline__node { text-align: center; flex: 1; }
+.timeline__dot { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto; background: var(--b1); }
+.timeline__dot.is-done { background: var(--green); }
+.timeline__dot.is-current--pendiente { background: var(--amber); box-shadow: 0 0 0 4px rgba(224, 162, 58, 0.18); }
+.timeline__dot.is-current--revision { background: var(--blue); box-shadow: 0 0 0 4px rgba(91, 141, 239, 0.18); }
+.timeline__dot.is-current--aprobado { background: var(--green); box-shadow: 0 0 0 4px rgba(63, 184, 115, 0.18); }
+.timeline__dot.is-current--rechazado { background: var(--red); box-shadow: 0 0 0 4px rgba(224, 106, 90, 0.18); }
+.timeline__label { font: 600 10.5px Saira; margin-top: 6px; color: var(--muted-4); }
+.timeline__label.is-on { color: var(--ink); }
+.timeline__bar { height: 2px; flex: 1; background: var(--b1); }
+.timeline__bar.is-done { background: var(--green); }
+.note { background: var(--panel-2); border: 1px solid var(--b4); border-radius: 10px; padding: 13px; }
+.note__head { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.note__author { font: 600 12px Saira; color: var(--green); }
+.note__time { font: 500 11px Saira; color: var(--muted-4); }
+.note__text { font: 400 13px Saira; color: var(--soft); line-height: 1.5; }
+.notes-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+
+/* Crear torneo */
+.create-form { max-width: 720px; display: flex; flex-direction: column; gap: 20px; }
+.fields-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.field-check { display: flex; align-items: center; gap: 9px; padding: 11px 13px; border: 1px solid var(--b3); border-radius: 9px; background: var(--panel-2); cursor: pointer; font: 600 13px Saira; }
+.field-check input { accent-color: var(--green); width: 16px; height: 16px; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.create-actions { display: flex; gap: 12px; justify-content: flex-end; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Tablet / móvil grande: la barra de staff pasa a barra superior */
+@media (max-width: 860px) {
+  .sidebar {
+    width: 100%; flex: 1 1 100%; min-height: auto;
+    flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px 8px;
+    border-right: none; border-bottom: 1px solid var(--b1); padding: 12px 16px;
+  }
+  .sidebar__brand { padding: 0; margin: 0; border-bottom: none; width: auto; }
+  .sidebar__spacer { display: none; }
+  .sidebar-item { padding: 8px 11px; }
+  .sidebar-item.is-active { border-left: none; border-bottom: 2px solid var(--green); border-radius: 8px 8px 0 0; }
+  .sidebar__user { border-top: none; padding: 0 0 0 4px; margin-left: auto; }
+  .sidebar-logout { width: auto; padding: 8px 10px; }
+  .staff-main { min-width: 0; padding: 22px 18px; }
+}
+
+/* Móvil */
+@media (max-width: 560px) {
+  .form-row, .member-row, .cols-2, .cols-3, .data-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 44px; }
+
+  .site-header { padding: 14px 18px; }
+  .hero { padding: 32px 18px 24px; gap: 28px; }
+  .section, .section--gap { padding-left: 18px; padding-right: 18px; }
+  .detail-wrap, .form-wrap { padding-left: 18px; padding-right: 18px; }
+  .messages { padding: 0 18px; }
+  .site-footer { padding: 24px 18px; }
+
+  .page-title { font-size: 30px; }
+  .detail-banner { padding: 20px; }
+  .detail-banner h1 { font-size: 30px; }
+  .reg-head h1 { font-size: 24px; }
+  .reg-actions { width: 100%; }
+  .reg-actions .btn-status { flex: 1; }
+
+  /* nav del header: el botón "Inscribirme" baja a una fila propia */
+  .nav { gap: 4px; }
+  .nav .btn { margin-left: 0; }
+
+  /* el formulario de registro ocupa todo el ancho */
+  .form-wrap { padding-top: 24px; }
+}

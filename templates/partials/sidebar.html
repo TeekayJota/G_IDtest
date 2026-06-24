@@ -1,0 +1,24 @@
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <div class="brand-logo brand-logo--sm">GID</div>
+    <div>
+      <div class="sidebar__brand-name">GAMER ID</div>
+      <div class="sidebar__brand-tag">STAFF</div>
+    </div>
+  </div>
+  <a class="sidebar-item {% if active == 'inbox' %}is-active{% endif %}" href="{% url 'staff_inbox' %}">Inscripciones</a>
+  <a class="sidebar-item {% if active == 'create' %}is-active{% endif %}" href="{% url 'staff_create' %}">Crear torneo</a>
+  <a class="sidebar-item" href="{% url 'tournament_list' %}">Torneos</a>
+  <div class="sidebar__spacer"></div>
+  <div class="sidebar__user">
+    <div class="sidebar__avatar">{{ user.initials }}</div>
+    <div>
+      <div class="sidebar__uname">{{ user.get_full_name|default:user.username }}</div>
+      <div class="sidebar__urole">{{ user.role_label }}</div>
+    </div>
+  </div>
+  <form method="post" action="{% url 'staff_logout' %}">
+    {% csrf_token %}
+    <button class="sidebar-logout" type="submit">Cerrar sesión</button>
+  </form>
+</aside>

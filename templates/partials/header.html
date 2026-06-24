@@ -1,0 +1,15 @@
+<header class="site-header">
+  <a class="brand" href="{% url 'landing' %}">
+    <div class="brand-logo">GID</div>
+    <div class="brand-text">
+      <div class="brand-name">GAMER ID</div>
+      <div class="brand-tag">BEYOND THE DREAMS</div>
+    </div>
+  </a>
+  <nav class="nav">
+    <a class="nav-link {% if active == 'inicio' %}is-active{% endif %}" href="{% url 'landing' %}">Inicio</a>
+    <a class="nav-link {% if active == 'torneos' %}is-active{% endif %}" href="{% url 'tournament_list' %}">Torneos</a>
+    <a class="nav-link" href="#">Contacto</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'register' %}">Inscribirme</a>
+  </nav>
+</header>

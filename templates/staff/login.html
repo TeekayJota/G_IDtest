@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Acceso staff · GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Staff · Login" class="login-wrap">
+  <div class="login-inner">
+    <div class="login-brand">
+      <div class="brand-logo brand-logo--lg">GID</div>
+      <div class="login-brand__name">GAMER ID</div>
+      <div class="login-brand__tag">PANEL DE STAFF</div>
+    </div>
+
+    <div class="login-card">
+      <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="msg msg--error" style="margin-bottom:16px">
+            {{ form.non_field_errors|join:" " }}
+          </div>
+        {% endif %}
+
+        <div style="margin-bottom:16px">
+          <label class="field-label">Correo</label>
+          <input class="field" name="username" value="{{ form.username.value|default:'' }}" placeholder="staff@gamerid.gg" autofocus autocapitalize="none">
+        </div>
+        <div style="margin-bottom:14px">
+          <label class="field-label">Contraseña</label>
+          <input class="field" type="password" name="password" placeholder="••••••••">
+        </div>
+        <label class="checkbox" style="margin:0 0 20px;align-items:center">
+          <input type="checkbox" name="remember" style="accent-color:#3FB873;width:16px;height:16px">
+          <span style="font-size:12.5px">Mantener sesión iniciada</span>
+        </label>
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        <button type="submit" class="btn btn-primary btn-block" style="border-radius:11px;padding:14px">Iniciar sesión</button>
+      </form>
+    </div>
+    <p style="text-align:center;font:500 12px Saira;color:var(--muted-4);margin-top:16px">
+      Acceso exclusivo para personal autorizado de GamerID.
+    </p>
+  </div>
+</div>
+{% endblock %}

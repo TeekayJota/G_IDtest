@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Torneos · GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Público · Torneos">
+  {% include "partials/header.html" with active="torneos" %}
+
+  <section class="section section--gap" style="max-width:1160px">
+    <div class="kicker" style="margin-bottom:6px">GAMER ID · TEMPORADA 2026</div>
+    <h1 class="page-title">TORNEOS</h1>
+    <p class="lead">Selecciona un torneo para ver sus detalles e inscribirte.</p>
+
+    <div class="filter-row">
+      <a class="filter-chip {% if filter == 'todos' %}is-active{% endif %}" href="{% url 'tournament_list' %}">Todos</a>
+      <a class="filter-chip {% if filter == 'abiertos' %}is-active{% endif %}" href="?f=abiertos">Abiertos</a>
+      <a class="filter-chip {% if filter == 'proximos' %}is-active{% endif %}" href="?f=proximos">Próximos</a>
+    </div>
+
+    <div class="grid-auto grid-auto--280">
+      {% for g in tournaments %}
+      <div class="tcard">
+        <div class="tcard__banner">
+          <span class="badge badge--{{ g.status_slug }}">{{ g.get_status_display }}</span>
+          <div class="tag-box tag-box--lg">{{ g.tag }}</div>
+        </div>
+        <div class="tcard__body">
+          <div class="tcard__name">{{ g.name }}</div>
+          <div class="tcard__meta">{{ g.mode_label }} · {{ g.dates_label }}</div>
+          <div class="tcard__stats">
+            <div><div class="tcard__stat-num">{{ g.slots_label }}</div><div class="tcard__stat-label">CUPOS</div></div>
+            <div><div class="tcard__stat-num">{{ g.prize_label }}</div><div class="tcard__stat-label">PREMIO</div></div>
+          </div>
+          <div class="tcard__actions">
+            <a class="btn btn-ghost btn-sm" style="flex:1" href="{% url 'tournament_detail' g.slug %}">Ver torneo</a>
+            <a class="btn btn-primary btn-sm" style="flex:1" href="{% url 'register_tournament' g.slug %}">Inscribirme</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="lead">No hay torneos en esta categoría.</p>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

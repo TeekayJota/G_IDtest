@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Inscripción · GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Público · Registro">
+  <header class="site-header">
+    <a class="brand" href="{% url 'landing' %}">
+      <div class="brand-logo">GID</div>
+      <div class="brand-text">
+        <div class="brand-name">GAMER ID</div>
+        <div class="brand-tag">BEYOND THE DREAMS</div>
+      </div>
+    </a>
+    <a class="nav-link" href="{% url 'tournament_list' %}">Cancelar</a>
+  </header>
+
+  <section class="form-wrap">
+    <div class="kicker" style="margin-bottom:6px">INSCRIPCIÓN · {% if tournament %}{{ tournament.name|upper }}{% else %}GAMER ID{% endif %}</div>
+    <h1 class="page-title" style="font-size:34px">FORMULARIO DE REGISTRO</h1>
+    <p class="lead">Completa tus datos. No necesitas crear una cuenta — recibirás un código para seguir tu inscripción.</p>
+
+    {% if not tournament %}
+      <p class="lead">No hay torneos disponibles para inscripción en este momento.</p>
+    {% else %}
+    <form method="post" action="{% url 'register_tournament' tournament.slug %}">
+      {% csrf_token %}
+
+      <!-- juego / torneo -->
+      <div class="field-group">
+        <label class="field-label">Juego / torneo</label>
+        <select class="field" data-register-select>
+          {% for t in tournaments %}
+          <option value="{% url 'register_tournament' t.slug %}" {% if t.pk == tournament.pk %}selected{% endif %}>{{ t.name }}</option>
+          {% endfor %}
+        </select>
+        <div class="field-hint">Los campos cambian según el torneo seleccionado.</div>
+      </div>
+
+      {% if form.team_name %}
+      <div class="team-box">
+        <label class="team-box__label">Datos del equipo</label>
+        {{ form.team_name }}
+        {% for e in form.team_name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        <div class="field-hint">Torneo por equipos · {{ tournament.team_size }} jugadores. El capitán llena el formulario.</div>
+      </div>
+      {% endif %}
+
+      <div class="section-label">DATOS DEL CAPITÁN / JUGADOR</div>
+
+      <div class="form-row">
+        <div>
+          <label class="field-label">Nombre</label>
+          {{ form.first_name }}
+          {% for e in form.first_name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </div>
+        <div>
+          <label class="field-label">Apellido</label>
+          {{ form.last_name }}
+          {% for e in form.last_name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </div>
+      </div>
+
+      {% if form.dni or form.phone %}
+      <div class="form-row">
+        {% if form.dni %}<div><label class="field-label">DNI</label>{{ form.dni }}</div>{% endif %}
+        {% if form.phone %}<div><label class="field-label">Teléfono</label>{{ form.phone }}</div>{% endif %}
+      </div>
+      {% endif %}
+
+      <div class="form-row">
+        <div>
+          {% if form.steam_id %}
+            <label class="field-label">Steam ID</label>{{ form.steam_id }}
+          {% elif form.nick %}
+            <label class="field-label">Nick / usuario</label>{{ form.nick }}
+          {% endif %}
+        </div>
+        {% if form.gaming_center %}
+        <div><label class="field-label">Gaming Center</label>{{ form.gaming_center }}</div>
+        {% endif %}
+      </div>
+
+      {% if form.email %}
+      <div class="field-group">
+        <label class="field-label">Correo</label>
+        {{ form.email }}
+        <div class="field-hint">Te avisaremos por aquí cuando tu inscripción sea aprobada.</div>
+      </div>
+      {% endif %}
+
+      {% if extra_members %}
+      <div class="section-label" style="margin-top:10px">INTEGRANTES ({{ extra_members|length }} restantes)</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px">
+        {% for i in extra_members %}
+        <div class="member-row">
+          <input class="field" name="member_nick_{{ i }}" placeholder="Nick jugador {{ i }}">
+          <input class="field" name="member_steam_{{ i }}" placeholder="{% if tournament.field_steam %}STEAM ID jugador {{ i }}{% else %}Usuario jugador {{ i }}{% endif %}">
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <label class="checkbox" style="margin-top:18px">
+        <input type="checkbox" name="terms" required style="margin-top:2px;accent-color:#3FB873;width:18px;height:18px">
+        <span>Acepto el reglamento del torneo y autorizo el tratamiento de mis datos para fines de la competencia.</span>
+      </label>
+
+      <div style="display:flex;gap:12px">
+        <button type="submit" class="btn btn-primary btn-block" style="border-radius:11px;padding:15px">Enviar inscripción</button>
+      </div>
+    </form>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

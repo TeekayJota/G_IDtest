@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Inscripción enviada · GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Público · Confirmación" class="confirm-wrap">
+  <div class="confirm-card">
+    <div class="check-circle">✓</div>
+    <h1 style="font:700 32px 'Saira Condensed';letter-spacing:.02em;margin:0 0 8px">¡INSCRIPCIÓN ENVIADA!</h1>
+    <p style="font:400 15px Saira;color:var(--muted);line-height:1.55;margin:0 0 24px">
+      Tu solicitud para <b style="color:var(--ink)">{{ reg.tournament.name }}</b> fue recibida.
+      El staff la revisará y confirmará tu participación.
+    </p>
+
+    <div class="code-box">
+      <div class="code-box__k">CÓDIGO DE SEGUIMIENTO</div>
+      <div class="code-box__v">{{ reg.code }}</div>
+      <div style="margin-top:12px">
+        <span class="badge badge--{{ reg.status_slug }}" style="padding:5px 13px;font-size:12px;letter-spacing:.04em">
+          <span class="dot dot--{{ reg.status_slug }}" style="display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle"></span>
+          Estado: {{ reg.get_status_display }}
+        </span>
+      </div>
+    </div>
+
+    <p style="font:400 13px Saira;color:var(--muted-3);line-height:1.5;margin:0 0 24px">
+      Guarda tu código. Podrás consultar el estado de tu equipo en la página del torneo.
+    </p>
+
+    <div style="display:flex;gap:12px">
+      <a class="btn btn-ghost btn-block" style="border-radius:11px;padding:14px" href="{% url 'landing' %}">Volver al inicio</a>
+      <a class="btn btn-primary btn-block" style="border-radius:11px;padding:14px" href="{% url 'tournament_detail' reg.tournament.slug %}">Seguir mi inscripción</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

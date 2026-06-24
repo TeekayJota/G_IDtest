@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ t.name }} · GamerID{% endblock %}
+
+{% block content %}
+<div data-screen-label="Público · Detalle de torneo">
+  {% include "partials/header.html" with active="torneos" %}
+
+  <section class="detail-wrap">
+    <a class="btn-back" href="{% url 'tournament_list' %}" style="display:inline-block;margin-bottom:18px">← Volver a torneos</a>
+
+    <div class="detail-banner">
+      <span class="badge badge--{{ t.status_slug }} badge-lg">{{ t.get_status_display }}</span>
+      <h1>{{ t.name|upper }}</h1>
+      <p>{{ t.description|default:"Torneo oficial de GamerID. Inscripción por equipos o individual según el juego." }}</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box"><div class="info-box__k">FORMATO</div><div class="info-box__v">{{ t.type_label }}</div></div>
+      <div class="info-box"><div class="info-box__k">FECHAS</div><div class="info-box__v">{{ t.dates_label_year }}</div></div>
+      <div class="info-box"><div class="info-box__k">PREMIO</div><div class="info-box__v accent">{{ t.prize_label }}</div></div>
+      <div class="info-box"><div class="info-box__k">CIERRE INSCRIPCIÓN</div><div class="info-box__v">{{ t.close_label }}</div></div>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-card__top">
+        <span style="font:600 13px Saira;color:var(--muted)">Cupos ocupados</span>
+        <span style="font:700 14px 'Saira Condensed'">{{ t.slots_label }}</span>
+      </div>
+      <div class="progress"><div class="progress__bar" style="width:{{ t.slots_pct }}%"></div></div>
+    </div>
+
+    <div class="section-head" style="margin-bottom:6px">
+      <h2 class="section-title" style="font-size:22px">EQUIPOS INSCRITOS</h2>
+      <a class="btn btn-primary btn-sm" href="{% url 'register_tournament' t.slug %}">Inscribir mi equipo</a>
+    </div>
+    <p class="lead" style="margin-bottom:18px">Sigue aquí el estado de tu inscripción. Los equipos rechazados no se muestran públicamente.</p>
+
+    <div class="group-label"><span class="dot dot--aprobado"></span><span class="text--aprobado">CONFIRMADOS</span></div>
+    <div class="team-grid">
+      {% for tm in confirmed %}
+        {% include "public/_team_row.html" with tm=tm %}
+      {% empty %}
+        <p class="lead">Aún no hay equipos confirmados.</p>
+      {% endfor %}
+    </div>
+
+    <div class="group-label"><span class="dot dot--revision"></span><span class="text--revision">EN REVISIÓN</span></div>
+    <div class="team-grid">
+      {% for tm in review %}
+        {% include "public/_team_row.html" with tm=tm %}
+      {% empty %}
+        <p class="lead">Sin equipos en revisión.</p>
+      {% endfor %}
+    </div>
+
+    <div class="group-label"><span class="dot dot--pendiente"></span><span class="text--pendiente">PENDIENTES</span></div>
+    <div class="team-grid">
+      {% for tm in pending %}
+        {% include "public/_team_row.html" with tm=tm %}
+      {% empty %}
+        <p class="lead">Sin inscripciones pendientes.</p>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

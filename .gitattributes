@@ -1,0 +1,10 @@
+# Normaliza finales de línea: LF en el repo (Railway/Linux), evita ruido CRLF.
+* text=auto eol=lf
+
+# Binarios (no convertir)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.sqlite3 binary

@@ -1,0 +1,8 @@
+Django>=5.1,<5.2
+dj-database-url>=2.2
+python-dotenv>=1.0
+whitenoise>=6.7
+# Servidor WSGI para producción (Linux). En Windows puedes usar waitress.
+gunicorn>=22.0
+# Driver de Postgres (opcional, solo si algún día migras de SQLite):
+psycopg[binary]>=3.2

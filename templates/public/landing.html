@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}GamerID · Beyond the Dreams{% endblock %}
+
+{% block content %}
+<div data-screen-label="Público · Inicio">
+  {% include "partials/header.html" with active="inicio" %}
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow">
+        <span class="dot"></span>
+        <span>TEMPORADA 2026 · INSCRIPCIONES ABIERTAS</span>
+      </div>
+      <h1 class="hero-title">BEYOND THE<br><span class="accent">DREAMS</span></h1>
+      <p class="hero-lead">Compite en los torneos oficiales de GamerID. Sin cuentas, sin complicaciones: eliges tu torneo, envías tus datos y nuestro staff aprueba tu inscripción.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{% url 'register' %}">Inscribir mi equipo</a>
+        <a class="btn btn-ghost" href="{% url 'tournament_list' %}">Ver torneos</a>
+      </div>
+      <div class="stats">
+        <div><div class="stat-num">4</div><div class="stat-label">JUEGOS</div></div>
+        <div><div class="stat-num">128</div><div class="stat-label">CUPOS</div></div>
+        <div><div class="stat-num">S/ 5k</div><div class="stat-label">EN PREMIOS</div></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="live-badge"><span class="dot"></span><span>EN VIVO PRONTO</span></div>
+      <div class="hero-art__ghost">key art / banner del torneo</div>
+      <div style="position:relative">
+        <div class="kicker" style="margin-bottom:4px">TORNEO DESTACADO</div>
+        <div style="font:700 30px 'Saira Condensed';letter-spacing:.02em">{% if featured %}{{ featured.name }}{% else %}Cyber Shield · Dota 2{% endif %}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TORNEOS ACTIVOS -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">TORNEOS ACTIVOS</h2>
+      <a class="btn-link" href="{% url 'tournament_list' %}">Ver todos →</a>
+    </div>
+    <div class="grid-auto grid-auto--250">
+      {% for g in tournaments %}
+      <div class="card">
+        <div class="game-card__top">
+          <div class="tag-box">{{ g.tag }}</div>
+          <span class="badge badge--{{ g.status_slug }}">{{ g.get_status_display }}</span>
+        </div>
+        <div class="game-card__name">{{ g.name }}</div>
+        <div class="game-card__meta">{{ g.mode_label }} · {{ g.dates_label }}</div>
+        <div class="game-card__foot">
+          <span class="game-card__slots">Cupos {{ g.slots_label }}</span>
+          <a class="btn-link" style="font-weight:700" href="{% url 'tournament_detail' g.slug %}">Ver torneo →</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="section section--gap">
+    <h2 class="section-title" style="margin-bottom:20px">¿CÓMO PARTICIPO?</h2>
+    <div class="grid-auto grid-auto--240">
+      <div class="step">
+        <div class="step__n">01</div>
+        <div class="step__t">Elige tu torneo</div>
+        <div class="step__d">Revisa los torneos abiertos y sus requisitos según el juego.</div>
+      </div>
+      <div class="step">
+        <div class="step__n">02</div>
+        <div class="step__t">Envía tus datos</div>
+        <div class="step__d">Completa el formulario. No necesitas crear ninguna cuenta.</div>
+      </div>
+      <div class="step">
+        <div class="step__n">03</div>
+        <div class="step__t">El staff aprueba</div>
+        <div class="step__d">Sigue el estado de tu inscripción con tu código de seguimiento.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>GAMER ID · BEYOND THE DREAMS © 2026</span>
+    <span>Plataforma de inscripción a torneos</span>
+  </footer>
+</div>
+{% endblock %}
