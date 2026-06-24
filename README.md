@@ -38,13 +38,16 @@ python manage.py runserver
 
 Abrir http://127.0.0.1:8000/
 
-### Accesos de staff (datos demo)
+### Accesos de staff (solo datos demo LOCALES)
 
-| Rol   | Usuario             | Contraseña     |
-|-------|---------------------|----------------|
-| Admin | `admin`             | `gamerid2026`  |
-| Admin | `carla@gamerid.gg`  | `gamerid2026`  |
-| Staff | `luis@gamerid.gg`   | `gamerid2026`  |
+`python manage.py seed_demo` crea usuarios de prueba para desarrollo:
+`admin` (Admin), `carla@gamerid.gg` (Admin) y `luis@gamerid.gg` (Staff).
+La contraseña por defecto está definida en `tournaments/management/commands/seed_demo.py`
+y es **solo para el demo local**.
+
+> ⚠️ En **producción** estos usuarios no se usan: el administrador real se crea
+> con la variable `ADMIN_PASSWORD` (en Railway) vía `ensure_admin`.
+> **Nunca ejecutes `seed_demo` en producción** (borra datos y crea usuarios demo).
 
 - Panel de staff: `/staff/`
 - Admin de Django (apoyo de super-admin): `/admin/`
