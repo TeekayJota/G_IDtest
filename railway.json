@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "gunicorn gamerid.wsgi --bind 0.0.0.0:$PORT --workers 2",
+    "startCommand": "python manage.py collectstatic --noinput && gunicorn gamerid.wsgi --bind 0.0.0.0:$PORT --workers 2",
     "preDeployCommand": "python manage.py migrate --noinput && python manage.py ensure_admin",
     "restartPolicyType": "ON_FAILURE",
     "numReplicas": 1
